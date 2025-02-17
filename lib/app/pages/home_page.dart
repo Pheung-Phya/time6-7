@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:time6_7/app/models/product.dart';
+import 'package:time6_7/app/pages/detail_page.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});
@@ -92,6 +93,9 @@ class HomePage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [Text('Our top picks'), Icon(Icons.add)],
               ),
+              const SizedBox(
+                height: 10,
+              ),
               //list grid
               Container(
                 width: double.infinity,
@@ -107,36 +111,59 @@ class HomePage extends StatelessWidget {
                             childAspectRatio: 0.8),
                     itemCount: product.length,
                     itemBuilder: (context, index) {
-                      return Container(
-                          child: Column(
-                        children: [
-                          Container(
-                              width: double.infinity,
-                              height: 180,
-                              decoration: BoxDecoration(
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      DetailPage(product: product[index])));
+                        },
+                        child: Column(
+                          children: [
+                            Container(
+                                width: double.infinity,
+                                height: 180,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(15),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black.withOpacity(0.2),
+                                        blurRadius: 10,
+                                      )
+                                    ]),
+                                child: ClipRRect(
                                   borderRadius: BorderRadius.circular(15),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.8),
-                                      blurRadius: 10,
-                                    )
-                                  ]),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(15),
-                                child: Image.asset(
-                                  product[index].photo,
-                                  fit: BoxFit.fill,
-                                ),
-                              )),
-                          Text(product[index].name)
-                        ],
-                      ));
+                                  child: Image.asset(
+                                    product[index].photo,
+                                    fit: BoxFit.fill,
+                                  ),
+                                )),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Text(
+                              product[index].name,
+                              style: const TextStyle(fontSize: 24),
+                            )
+                          ],
+                        ),
+                      );
                     }),
               )
             ],
           ),
         ),
       ),
+      bottomNavigationBar: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
+          items: const [
+            BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+            BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.shopping_cart), label: 'Cart'),
+            BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
+          ]),
     );
   }
 }
