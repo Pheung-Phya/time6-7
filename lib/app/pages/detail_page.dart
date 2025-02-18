@@ -11,11 +11,22 @@ class DetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        actions: [
+          IconButton(
+            style: const ButtonStyle(
+                backgroundColor:
+                    WidgetStatePropertyAll(Color.fromARGB(255, 203, 117, 117))),
+            onPressed: () {},
+            icon: const Icon(Icons.favorite_border_sharp),
+          )
+        ],
+      ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Text(product.name),
             Container(
@@ -62,8 +73,30 @@ class DetailPage extends StatelessWidget {
                             ),
                           ),
                         ))
-                    .toList())
+                    .toList()),
+            const SizedBox(
+              height: 10,
+            ),
+            const Text('Description'),
+            Text(product.description)
           ],
+        ),
+      ),
+      bottomNavigationBar: Container(
+        height: 100,
+        color: const Color.fromARGB(255, 214, 217, 220),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [const Text('Price '), Text('\$ ${product.price}')],
+              ),
+              ElevatedButton(onPressed: () {}, child: Text('Bye Now'))
+            ],
+          ),
         ),
       ),
     );
