@@ -8,9 +8,9 @@
 .buildlog/
 .history
 .svn/
-.lib/app
-.lib/app1
-.lib/components
+**/app/
+**/app1/
+**/components/
 migrate_working_dir/
 
 # IntelliJ related
