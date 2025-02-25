@@ -26,7 +26,7 @@ class DetailPage extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(product.name),
             Container(
@@ -83,7 +83,7 @@ class DetailPage extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: Container(
-        height: 100,
+        height: 80,
         color: const Color.fromARGB(255, 214, 217, 220),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -94,7 +94,7 @@ class DetailPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [const Text('Price '), Text('\$ ${product.price}')],
               ),
-              ElevatedButton(onPressed: () {}, child: Text('Bye Now'))
+              ElevatedButton(onPressed: () {}, child: const Text('Bye Now'))
             ],
           ),
         ),
