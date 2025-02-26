@@ -6,8 +6,8 @@ List<Shop> controller = [
       name: 'Japan Milk Bread',
       price: 2000,
       category: Category.bread,
-      description: 'assets/images/japanmilkbread.jpg',
-      image: '',
+      description: '',
+      image: 'assets/images/japanmilkbread.jpg',
       size: ['s', 'm', 'l']),
   Shop(
     id: 2,
@@ -33,7 +33,7 @@ List<Shop> controller = [
     price: 5000,
     category: Category.cake,
     description: '',
-    image: 'assets/images/vanilascake.jpg',
+    image: 'assets/images/vanilacake.jpg',
     size: ['s', 'm'],
   ),
   Shop(
@@ -85,7 +85,7 @@ List<Shop> controller = [
     id: 10,
     name: 'Shop 10',
     price: 11000,
-    category: Category.bread,
+    category: Category.cake,
     description: '',
     image: 'assets/images/japanmilkbread.jpg',
     size: ['m', 'l', 'xl'],
