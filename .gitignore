@@ -9,8 +9,9 @@
 .history
 .svn/
 
-lib/*
-!lib/app2/
+lib/app
+lib/app1
+lib/components
 
 
 migrate_working_dir/
