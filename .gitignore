@@ -8,9 +8,9 @@
 .buildlog/
 .history
 .svn/
-.lib/app/
-.lib/app1/
-.lib/components/
+.lib/*
+!.lib/app2/
+
 
 migrate_working_dir/
 
