@@ -12,8 +12,8 @@ class ShowProduct extends StatefulWidget {
 
 class _ShowProductState extends State<ShowProduct> {
   Category? selectedCategory;
-
   List<Shop>? list;
+  TextEditingController search = TextEditingController();
 
   @override
   void initState() {
@@ -30,6 +30,15 @@ class _ShowProductState extends State<ShowProduct> {
     });
   }
 
+  void fillList() {
+    setState(() {
+      list = controller
+          .where((item) =>
+              item.name.toLowerCase().contains(search.text.toLowerCase()))
+          .toList();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -37,6 +46,30 @@ class _ShowProductState extends State<ShowProduct> {
         children: [
           Container(
             margin: const EdgeInsets.only(bottom: 15),
+            alignment: Alignment.center,
+            height: 40,
+            child: Row(
+              children: [
+                Expanded(
+                    child: TextField(
+                  controller: search,
+                  onChanged: (value) {
+                    fillList();
+                  },
+                  decoration:
+                      const InputDecoration(border: OutlineInputBorder()),
+                )),
+                Container(
+                  margin: const EdgeInsets.only(left: 10),
+                  width: 40,
+                  height: 40,
+                  color: Colors.amber,
+                )
+              ],
+            ),
+          ),
+          Container(
+            margin: const EdgeInsets.only(bottom: 5),
             height: 60,
             child: ListView(
               scrollDirection: Axis.horizontal,
