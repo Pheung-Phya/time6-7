@@ -119,7 +119,7 @@ class _ShowProductState extends State<ShowProduct> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => Details(
-                                    product: list![index],
+                                    shop: list![index],
                                   )));
                     },
                     child: Container(
