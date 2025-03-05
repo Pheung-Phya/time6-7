@@ -71,12 +71,94 @@ class _DetailsState extends State<Details> {
               left: 0,
               right: 0,
               child: Container(
+                padding: const EdgeInsets.all(20),
                 height: 450,
                 decoration: const BoxDecoration(
                     color: Colors.yellow,
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(40),
                         topRight: Radius.circular(40))),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(widget.shop.name),
+                    Text(widget.shop.description),
+                    Text('IDR ${widget.shop.price.toStringAsFixed(3)}'),
+                    const Text('Size'),
+                    Container(
+                      width: double.infinity,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.white,
+                      ),
+                      child: DropdownButton(
+                          borderRadius: BorderRadius.circular(10),
+                          items: widget.shop.size.map((item) {
+                            return DropdownMenuItem<String>(
+                                value: item, child: Text(item));
+                          }).toList(),
+                          onChanged: (value) {}),
+                    ),
+                    const Spacer(),
+                    Row(
+                      children: [
+                        Container(
+                          width: 70,
+                          height: 50,
+                          decoration: BoxDecoration(
+                              color: Colors.pink,
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              const Text(
+                                '1',
+                                style: TextStyle(fontSize: 25),
+                              ),
+                              SizedBox(
+                                height: 50,
+                                child: Column(
+                                  children: [
+                                    InkWell(
+                                        onTap: () {},
+                                        child: const Icon(
+                                          Icons.arrow_drop_up_sharp,
+                                          size: 25,
+                                        )),
+                                    InkWell(
+                                        onTap: () {},
+                                        child: const Icon(
+                                          Icons.arrow_drop_down_sharp,
+                                          size: 25,
+                                        ))
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Expanded(
+                          child: SizedBox(
+                            height: 50,
+                            child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                    backgroundColor:
+                                        const Color.fromARGB(255, 148, 80, 22)),
+                                onPressed: () {},
+                                child: const Text('Add to Cart')),
+                          ),
+                        )
+                      ],
+                    )
+                  ],
+                ),
               ),
             )
           ],
