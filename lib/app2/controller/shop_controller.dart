@@ -77,7 +77,8 @@ List<Shop> controller = [
     name: 'Shop 9',
     price: 10000,
     category: Category.bread,
-    description: '',
+    description:
+        "Indulge in the rich, moist, and decadent delight of our freshly baked cakes. Made with the finest ingredients, each bite melts in your mouth, offering a perfect balance of sweetness and texture. Whether you crave the velvety smoothness of chocolate, the light fluffiness of vanilla, or the fruity freshness of berries, our cakes are crafted to satisfy every sweet tooth. Perfect for birthdays, celebrations, or simply treating yourself, our cakes are a slice of happiness in every bite!",
     image: 'assets/images/japanmilkbread.jpg',
     size: ['s', 'l'],
   ),

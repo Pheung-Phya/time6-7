@@ -11,7 +11,7 @@ class CartPage extends StatefulWidget {
 }
 
 class _CartPageState extends State<CartPage> {
-  Map<Shop, int> itemCounts = {};
+  static Map<Shop, int> itemCounts = {};
 
   @override
   void initState() {

@@ -1,7 +1,10 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:time6_7/app2/controller/like_controller.dart';
+import 'package:time6_7/app2/model/like.dart';
 
 import 'package:time6_7/app2/model/shop.dart';
+import 'package:time6_7/app2/pages/card.dart';
 
 class Details extends StatefulWidget {
   const Details({
@@ -15,6 +18,8 @@ class Details extends StatefulWidget {
 }
 
 class _DetailsState extends State<Details> {
+  int _count = 1;
+  LikeEnum _like = LikeEnum.normal;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,7 +65,14 @@ class _DetailsState extends State<Details> {
                           borderRadius: BorderRadius.circular(10)),
                       child: IconButton(
                           onPressed: () {
-                            Navigator.pop(context);
+                            setState(() {
+                              bool isAlreadyLiked = LikeController.like
+                                  .any((item) => item.id == widget.shop.id);
+
+                              if (!isAlreadyLiked) {
+                                LikeController.like.add(widget.shop);
+                              }
+                            });
                           },
                           icon: const Icon(Icons.favorite_border_rounded))),
                 ],
@@ -86,6 +98,7 @@ class _DetailsState extends State<Details> {
                     Text('IDR ${widget.shop.price.toStringAsFixed(3)}'),
                     const Text('Size'),
                     Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
                       width: double.infinity,
                       height: 50,
                       decoration: BoxDecoration(
@@ -93,6 +106,7 @@ class _DetailsState extends State<Details> {
                         color: Colors.white,
                       ),
                       child: DropdownButton(
+                          hint: const Text('Select size'),
                           borderRadius: BorderRadius.circular(10),
                           items: widget.shop.size.map((item) {
                             return DropdownMenuItem<String>(
@@ -112,8 +126,8 @@ class _DetailsState extends State<Details> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              const Text(
-                                '1',
+                              Text(
+                                '$_count',
                                 style: TextStyle(fontSize: 25),
                               ),
                               SizedBox(
@@ -121,13 +135,21 @@ class _DetailsState extends State<Details> {
                                 child: Column(
                                   children: [
                                     InkWell(
-                                        onTap: () {},
+                                        onTap: () {
+                                          setState(() {
+                                            _count++;
+                                          });
+                                        },
                                         child: const Icon(
                                           Icons.arrow_drop_up_sharp,
                                           size: 25,
                                         )),
                                     InkWell(
-                                        onTap: () {},
+                                        onTap: () {
+                                          setState(() {
+                                            _count = _count > 1 ? --_count : 1;
+                                          });
+                                        },
                                         child: const Icon(
                                           Icons.arrow_drop_down_sharp,
                                           size: 25,
@@ -151,7 +173,13 @@ class _DetailsState extends State<Details> {
                                             BorderRadius.circular(10)),
                                     backgroundColor:
                                         const Color.fromARGB(255, 148, 80, 22)),
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => CartPage(
+                                              cartItems: [widget.shop])));
+                                },
                                 child: const Text('Add to Cart')),
                           ),
                         )
