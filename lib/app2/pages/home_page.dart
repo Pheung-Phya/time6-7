@@ -13,7 +13,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int index = 0;
-  var _WidgetList = [ShopPage(), LikePage(), CardProduct(), Profile()];
+  var _WidgetList = [ShopPage(), LikePage(), CartProduct(), Profile()];
 
   @override
   Widget build(BuildContext context) {

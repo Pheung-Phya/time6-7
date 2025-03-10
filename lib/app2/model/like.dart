@@ -1,4 +1,0 @@
-enum LikeEnum {
-  favorite,
-  normal,
-}

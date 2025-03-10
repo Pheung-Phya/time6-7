@@ -1,16 +1,15 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:time6_7/app2/controller/cart_controller.dart';
 import 'package:time6_7/app2/controller/like_controller.dart';
-import 'package:time6_7/app2/model/like.dart';
-
 import 'package:time6_7/app2/model/shop.dart';
-import 'package:time6_7/app2/pages/card.dart';
+import 'package:time6_7/app2/pages/card_product.dart';
 
 class Details extends StatefulWidget {
   const Details({
-    Key? key,
+    super.key,
     required this.shop,
-  }) : super(key: key);
+  });
   final Shop shop;
 
   @override
@@ -18,8 +17,6 @@ class Details extends StatefulWidget {
 }
 
 class _DetailsState extends State<Details> {
-  int _count = 1;
-  LikeEnum _like = LikeEnum.normal;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,17 +61,24 @@ class _DetailsState extends State<Details> {
                           color: Colors.amber,
                           borderRadius: BorderRadius.circular(10)),
                       child: IconButton(
-                          onPressed: () {
-                            setState(() {
-                              bool isAlreadyLiked = LikeController.like
-                                  .any((item) => item.id == widget.shop.id);
-
-                              if (!isAlreadyLiked) {
-                                LikeController.like.add(widget.shop);
-                              }
-                            });
-                          },
-                          icon: const Icon(Icons.favorite_border_rounded))),
+                        onPressed: () {
+                          setState(() {
+                            bool isAlreadyLiked = LikeController.like
+                                .any((item) => item.id == widget.shop.id);
+                            if (!isAlreadyLiked) {
+                              LikeController.like.add(widget.shop);
+                            }
+                            if (isAlreadyLiked) {
+                              LikeController.like.remove(widget.shop);
+                            }
+                          });
+                        },
+                        icon: const Icon(Icons.favorite_border_rounded),
+                        color: LikeController.like
+                                .any((item) => item.id == widget.shop.id)
+                            ? Colors.red
+                            : Colors.white,
+                      )),
                 ],
               ),
             ),
@@ -127,7 +131,7 @@ class _DetailsState extends State<Details> {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               Text(
-                                '$_count',
+                                '${widget.shop.qty}',
                                 style: TextStyle(fontSize: 25),
                               ),
                               SizedBox(
@@ -137,7 +141,7 @@ class _DetailsState extends State<Details> {
                                     InkWell(
                                         onTap: () {
                                           setState(() {
-                                            _count++;
+                                            widget.shop.qty++;
                                           });
                                         },
                                         child: const Icon(
@@ -147,7 +151,10 @@ class _DetailsState extends State<Details> {
                                     InkWell(
                                         onTap: () {
                                           setState(() {
-                                            _count = _count > 1 ? --_count : 1;
+                                            widget.shop.qty =
+                                                widget.shop.qty > 1
+                                                    ? --widget.shop.qty
+                                                    : 1;
                                           });
                                         },
                                         child: const Icon(
@@ -174,11 +181,15 @@ class _DetailsState extends State<Details> {
                                     backgroundColor:
                                         const Color.fromARGB(255, 148, 80, 22)),
                                 onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => CartPage(
-                                              cartItems: [widget.shop])));
+                                  bool added = CartController.cart
+                                      .any((item) => item.id == widget.shop.id);
+                                  if (!added) {
+                                    CartController.cart.add(widget.shop);
+                                  }
+                                  if (added) {
+                                    CartController.cart
+                                        .map((item) => item.qty++);
+                                  }
                                 },
                                 child: const Text('Add to Cart')),
                           ),

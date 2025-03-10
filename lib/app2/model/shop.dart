@@ -8,6 +8,7 @@ enum Category {
 class Shop {
   final int id;
   final String name;
+  int qty;
   final String description;
   final double price;
   final List<String> size;
@@ -21,5 +22,6 @@ class Shop {
       required this.price,
       required this.size,
       required this.image,
-      required this.category});
+      required this.category,
+      this.qty = 1});
 }
