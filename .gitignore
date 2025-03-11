@@ -11,8 +11,8 @@
 
 lib/app
 lib/app1
-lib/app2
 lib/components
+lib/app2
 
 
 migrate_working_dir/
