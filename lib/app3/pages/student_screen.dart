@@ -19,11 +19,37 @@ class StudentScreen extends StatelessWidget {
         () => ListView.builder(
             itemCount: controller.students.length,
             itemBuilder: (context, index) {
-              return ListTile(
-                leading: Text(controller.students[index].id.toString()),
-                title: Text(controller.students[index].name.toString()),
-                subtitle: Text(controller.students[index].gender.toString()),
-                trailing: Text(controller.students[index].average.toString()),
+              return Card(
+                child: ListTile(
+                    leading: Text(controller.students[index].id.toString()),
+                    title: Text(controller.students[index].name.toString()),
+                    subtitle:
+                        Text(controller.students[index].gender.toString()),
+                    trailing: SizedBox(
+                      width: 120,
+                      child: Row(
+                        children: [
+                          Text(controller.students[index].average.toString()),
+                          IconButton(
+                            onPressed: () {
+                              controller.deleteIndex(index);
+                            },
+                            icon: const Icon(Icons.delete),
+                            color: Colors.red,
+                          ),
+                          IconButton(
+                            onPressed: () {
+                              Get.to(StudentInput(
+                                index: index,
+                                student: controller.students[index],
+                              ));
+                            },
+                            icon: const Icon(Icons.edit),
+                            color: Colors.red,
+                          ),
+                        ],
+                      ),
+                    )),
               );
             }),
       )),

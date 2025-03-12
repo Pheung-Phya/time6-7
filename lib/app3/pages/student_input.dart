@@ -4,7 +4,9 @@ import 'package:time6_7/app3/controllers/student_controller.dart';
 import 'package:time6_7/app3/models/student.dart';
 
 class StudentInput extends StatelessWidget {
-  StudentInput({super.key});
+  final Student? student;
+  int? index;
+  StudentInput({super.key, this.index, this.student});
 
   TextEditingController controllerId = TextEditingController();
   TextEditingController controllerName = TextEditingController();
@@ -15,6 +17,13 @@ class StudentInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (student != null) {
+      controllerId.text = student!.id.toString();
+      controllerName.text = student!.name;
+      controllerGender.text = student!.gender;
+      controllerAverage.text = student!.average.toString();
+    }
+
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -22,38 +31,56 @@ class StudentInput extends StatelessWidget {
           children: [
             TextField(
               controller: controllerId,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'ID',
               ),
             ),
             TextField(
               controller: controllerName,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Name',
               ),
             ),
             TextField(
               controller: controllerGender,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Gender',
               ),
             ),
             TextField(
               controller: controllerAverage,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Average',
               ),
             ),
+            student == null
+                ? TextButton(
+                    onPressed: () {
+                      controller.insert(Student(
+                          id: int.parse(controllerId.text),
+                          name: controllerName.text,
+                          gender: controllerGender.text,
+                          average: double.parse(controllerAverage.text)));
+                      Get.back();
+                    },
+                    child: const Text('Save'))
+                : TextButton(
+                    onPressed: () {
+                      controller.Update(
+                          index!,
+                          Student(
+                              id: int.parse(controllerId.text),
+                              name: controllerName.text,
+                              gender: controllerGender.text,
+                              average: double.parse(controllerAverage.text)));
+                      Get.back();
+                    },
+                    child: const Text('Update')),
             TextButton(
                 onPressed: () {
-                  controller.insert(Student(
-                      id: int.parse(controllerId.text),
-                      name: controllerName.text,
-                      gender: controllerGender.text,
-                      average: double.parse(controllerAverage.text)));
                   Get.back();
                 },
-                child: Text('Save'))
+                child: const Text('Cancel'))
           ],
         ),
       ),
