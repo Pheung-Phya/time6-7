@@ -13,6 +13,7 @@ lib/app
 lib/app1
 lib/components
 lib/app2
+lib/app3
 
 
 migrate_working_dir/

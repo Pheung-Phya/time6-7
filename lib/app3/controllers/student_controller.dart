@@ -1,13 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:time6_7/app3/models/student.dart';
 
 class StudentController extends GetxController {
-  TextEditingController controllerId = TextEditingController();
-  TextEditingController controllerName = TextEditingController();
-  TextEditingController controllerGender = TextEditingController();
-  TextEditingController controllerAverage = TextEditingController();
-
   RxList<Student> students = [
     Student(id: 101, name: "Panha", gender: "Male", average: 90.90),
     Student(id: 102, name: "Thida", gender: "Female", average: 80.90),
