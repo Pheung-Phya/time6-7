@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -15,6 +17,7 @@ class OnBoardingScreen extends StatelessWidget {
         children: [
           PageView(
             controller: controller.pageController,
+            onPageChanged: controller.onPageChanged,
             children: const [
               OnBoardingPage(
                   title: 'Page 1',
@@ -23,15 +26,15 @@ class OnBoardingScreen extends StatelessWidget {
               OnBoardingPage(
                   title: 'Page 2',
                   subTitle: 'This is page 2.',
-                  image: "assets/food.png"),
+                  image: "assets/ganzberg.jpg"),
               OnBoardingPage(
                   title: 'Page 3',
                   subTitle: 'This is page 3.',
-                  image: "assets/food.png"),
+                  image: "assets/qr.png"),
             ],
           ),
           Positioned(
-            bottom: 60,
+            bottom: 80,
             left: 20,
             child: SmoothPageIndicator(
               controller: controller.pageController,
@@ -42,6 +45,22 @@ class OnBoardingScreen extends StatelessWidget {
                   dotHeight: 10,
                   activeDotColor: Colors.blue), // your preferred effect
             ),
+          ),
+          Positioned(
+              bottom: 60,
+              right: 20,
+              child: IconButton(
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blue,
+                      padding: const EdgeInsets.all(10)),
+                  onPressed: () => controller.pageNext(),
+                  icon: const Icon(Icons.arrow_forward_ios_outlined))),
+          Positioned(
+            top: 60,
+            right: 20,
+            child: TextButton(
+                onPressed: () => controller.onPageSkip(),
+                child: const Text('Skip')),
           ),
         ],
       ),
